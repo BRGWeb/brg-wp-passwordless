@@ -108,11 +108,11 @@ class Brg_Wp_Account_Kit {
 		$this->version = '1.0.0';
 
 		//Account kit variables
-		//TODO get variables from database
-		$this->app_id = '';
-		$this->api_version = '';
-		$this->app_secret = '';
-		$this->client_token= '';
+        $options = get_option('brg-wp-account-kit-settings');
+		$this->app_id = $options['app_id'];
+		$this->api_version = $options['api_version'];
+		$this->app_secret = $options['app_secret'];
+		$this->client_token= $options['client_token'];
 
 		$this->load_dependencies();
 		$this->set_locale();
@@ -156,6 +156,12 @@ class Brg_Wp_Account_Kit {
 		 * of the plugin.
 		 */
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-brg-wp-account-kit-i18n.php';
+
+		/**
+		 * The class responsible for defining all settings
+		 * side of the site.
+		 */
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-brg-wp-account-kit-settings.php';
 
 		/**
 		 * The class responsible for defining all actions that occur in the admin area.
@@ -225,7 +231,6 @@ class Brg_Wp_Account_Kit {
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
 		$this->loader->add_action( 'login_form', $plugin_public, 'login_form');
-		
 	}
 
 	/**

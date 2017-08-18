@@ -111,10 +111,9 @@ class Brg_Wp_Account_Kit_Public {
          */
         public function login_enqueue_scripts() {
 
-                //TODO select locale based in WP locale
-                wp_enqueue_script( $this->plugin_name, 'https://sdk.accountkit.com/pt_BR/sdk.js', array( 'jquery' ), $this->version, false );
-		
-		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/brg-wp-account-kit-public.js', array( 'jquery' ), $this->version, false );
+            //TODO select locale based in WP locale
+            wp_enqueue_script( $this->plugin_name, 'https://sdk.accountkit.com/pt_BR/sdk.js', array( 'jquery' ), $this->version, false );
+            wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/brg-wp-account-kit-public.js', array( 'jquery' ), $this->version, false );
 
         }
 
@@ -127,14 +126,14 @@ class Brg_Wp_Account_Kit_Public {
 		?>
 		<form method="get" action="https://www.accountkit.com/v1.0/basic/dialog/sms_login/">
 		  <input type="hidden" name="app_id" value="<?php echo $this->app_data['app_id']; ?>">
-		  <input type="hidden" name="redirect" value="<?php echo home_url(); ?>/wp-json/brg-wp-account-kit/v1/return">
+          <input type="hidden" name="redirect" value="<?php echo home_url(); ?>/wp-json/brg-wp-account-kit/v1/return">
 		  <input type="hidden" name="state" value="<?php echo wp_create_nonce('sms_login'); ?>">
 		  <input type="hidden" name="fbAppEventsEnabled" value=true>
 		  <button type="submit">Login por SMS</button>
 		</form>
 		<form method="get" action="https://www.accountkit.com/v1.0/basic/dialog/email_login/">
 		  <input type="hidden" name="app_id" value="<?php echo $this->app_data['app_id']; ?>">
-		  <input type="hidden" name="redirect" value="<?php echo home_url(); ?>/wp-json/brg-wp-account-kit/v1/return">
+          <input type="hidden" name="redirect" value="<?php echo home_url(); ?>/wp-json/brg-wp-account-kit/v1/return">
 		  <input type="hidden" name="state" value="<?php echo wp_create_nonce('sms_login'); ?>">
 		  <input type="hidden" name="fbAppEventsEnabled" value=true>
 		  <button type="submit">Login por Email</button>

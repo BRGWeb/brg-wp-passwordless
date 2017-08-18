@@ -30,7 +30,6 @@ class Brg_Wp_Account_Kit_Deactivator {
 	 * @since    1.0.0
 	 */
 	public static function deactivate() {
-
 	}
 
 }
