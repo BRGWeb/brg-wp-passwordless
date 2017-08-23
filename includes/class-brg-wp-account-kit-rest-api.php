@@ -75,6 +75,11 @@ class Brg_Wp_Account_Kit_REST_API {
 
 				//data returned
 				$user_id = $data['id'];
+
+                if (!$user_id) {
+                    wp_die('<strong>Account Kit Error</strong>: invalid user id', 'Account Kit');
+                }
+
 				$user_access_token = $data['access_token'];
 				$refresh_interval = $data['token_refresh_interval_sec'];
 
@@ -92,7 +97,11 @@ class Brg_Wp_Account_Kit_REST_API {
 				$username = 'ak_'.$user_id;
 
 				//check if user exists
-				$uid = email_exists($email);
+                $uid = null;
+                if ($email) {
+                    $uid = email_exists($email);
+                }
+
                 if (!$uid) {
                     $uid = username_exists($username);
                 }
@@ -103,7 +112,7 @@ class Brg_Wp_Account_Kit_REST_API {
 					update_user_meta($uid,'_brg_wp_account_kit_token', $user_access_token);
 				}else{
 					//first time login for this user
-					$uid = wp_create_user($uid, $user_access_token, $email );
+					$uid = wp_create_user($username, $user_access_token, $email);
 				}
 				//everything is working great! So let's set auth cookie and redirect user to admin_url();
                 wp_set_current_user($uid, $user_login);

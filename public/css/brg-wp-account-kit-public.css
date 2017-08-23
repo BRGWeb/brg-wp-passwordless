@@ -2,3 +2,16 @@
  * All of the CSS for your public-facing functionality should be
  * included in this file.
  */
+.brg-wp-account-kit-login-option {
+    width: 50%;
+    float: left;
+    padding-bottom: 10px;
+}
+
+.brg-wp-account-kit-login-option-email {
+    text-align: left;
+}
+
+.brg-wp-account-kit-login-option-sms {
+    text-align: right;
+}

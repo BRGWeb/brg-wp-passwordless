@@ -59,52 +59,6 @@ class Brg_Wp_Account_Kit_Public {
 	}
 
 	/**
-	 * Register the stylesheets for the public-facing side of the site.
-	 *
-	 * @since    1.0.0
-	 */
-	public function enqueue_styles() {
-
-		/**
-		 * This function is provided for demonstration purposes only.
-		 *
-		 * An instance of this class should be passed to the run() function
-		 * defined in Brg_Wp_Account_Kit_Loader as all of the hooks are defined
-		 * in that particular class.
-		 *
-		 * The Brg_Wp_Account_Kit_Loader will then create the relationship
-		 * between the defined hooks and the functions defined in this
-		 * class.
-		 */
-
-		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/brg-wp-account-kit-public.css', array(), $this->version, 'all' );
-
-	}
-
-	/**
-	 * Register the JavaScript for the public-facing side of the site.
-	 *
-	 * @since    1.0.0
-	 */
-	public function enqueue_scripts() {
-
-		/**
-		 * This function is provided for demonstration purposes only.
-		 *
-		 * An instance of this class should be passed to the run() function
-		 * defined in Brg_Wp_Account_Kit_Loader as all of the hooks are defined
-		 * in that particular class.
-		 *
-		 * The Brg_Wp_Account_Kit_Loader will then create the relationship
-		 * between the defined hooks and the functions defined in this
-		 * class.
-		 */
-
-		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/brg-wp-account-kit-public.js', array( 'jquery' ), $this->version, false );
-
-	}
-
-	/**
          * Register the JavaScript for the login page.
          *
          * @since    1.0.0
@@ -118,26 +72,25 @@ class Brg_Wp_Account_Kit_Public {
         }
 
 	/**
+         * Register the JavaScript for the login page.
+         *
+         * @since    1.0.0
+         */
+        public function login_enqueue_styles() {
+            wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/brg-wp-account-kit-public.css', array(), $this->version, 'all' );
+        }
+
+	/**
 	 * Loads custom fields in login form
 	 *
 	 * @since   1.0.0
 	 */
 	public function login_form(){
+        $this->login_enqueue_styles();
+        $this->login_enqueue_scripts();
 		?>
-		<form method="get" action="https://www.accountkit.com/v1.0/basic/dialog/sms_login/">
-		  <input type="hidden" name="app_id" value="<?php echo $this->app_data['app_id']; ?>">
-          <input type="hidden" name="redirect" value="<?php echo home_url(); ?>/wp-json/brg-wp-account-kit/v1/return">
-		  <input type="hidden" name="state" value="<?php echo wp_create_nonce('sms_login'); ?>">
-		  <input type="hidden" name="fbAppEventsEnabled" value=true>
-		  <button type="submit">Login por SMS</button>
-		</form>
-		<form method="get" action="https://www.accountkit.com/v1.0/basic/dialog/email_login/">
-		  <input type="hidden" name="app_id" value="<?php echo $this->app_data['app_id']; ?>">
-          <input type="hidden" name="redirect" value="<?php echo home_url(); ?>/wp-json/brg-wp-account-kit/v1/return">
-		  <input type="hidden" name="state" value="<?php echo wp_create_nonce('sms_login'); ?>">
-		  <input type="hidden" name="fbAppEventsEnabled" value=true>
-		  <button type="submit">Login por Email</button>
-		</form>
+        <a class="brg-wp-account-kit-login-option brg-wp-account-kit-login-option-email" href="https://www.accountkit.com/v1.0/basic/dialog/email_login?app_id=<?php echo $this->app_data['app_id']; ?>&redirect=<?php echo urlencode(home_url()); ?>/wp-json/brg-wp-account-kit/v1/return&state=<?php echo wp_create_nonce('sms_login'); ?>&fbAppEventsEnabled=true">Login por Email</a>
+        <a class="brg-wp-account-kit-login-option brg-wp-account-kit-login-option-sms" href="https://www.accountkit.com/v1.0/basic/dialog/sms_login?app_id=<?php echo $this->app_data['app_id']; ?>&redirect=<?php echo urlencode(home_url()); ?>/wp-json/brg-wp-account-kit/v1/return&state=<?php echo wp_create_nonce('sms_login'); ?>&fbAppEventsEnabled=true">Login por SMS</a>
 		<?php
 	}
 }
