@@ -40,7 +40,6 @@ class Brg_Wp_Account_Kit_Public {
 	 */
 	private $version;
 
-
 	private $app_data;
 
 	/**
@@ -56,6 +55,8 @@ class Brg_Wp_Account_Kit_Public {
 		$this->version = $version;
 		$this->app_data = $app_data;
 
+        $this->login_enqueue_styles();
+        $this->login_enqueue_scripts();
 	}
 
 	/**
@@ -64,20 +65,33 @@ class Brg_Wp_Account_Kit_Public {
          * @since    1.0.0
          */
         public function login_enqueue_scripts() {
+            wp_enqueue_script(
+                $this->plugin_name,
+                'https://sdk.accountkit.com/pt_BR/sdk.js',
+                array( 'jquery' ),
+                $this->version,
+                false
+            );
 
-            //TODO select locale based in WP locale
-            wp_enqueue_script( $this->plugin_name, 'https://sdk.accountkit.com/pt_BR/sdk.js', array( 'jquery' ), $this->version, false );
-            wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/brg-wp-account-kit-public.js', array( 'jquery' ), $this->version, false );
-
+            wp_enqueue_script(
+                $this->plugin_name,
+                plugin_dir_url( __FILE__ ) . 'js/brg-wp-account-kit-public.js'
+            );
         }
 
-	/**
+        /**
          * Register the JavaScript for the login page.
          *
          * @since    1.0.0
          */
         public function login_enqueue_styles() {
-            wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/brg-wp-account-kit-public.css', array(), $this->version, 'all' );
+            wp_enqueue_style(
+                $this->plugin_name,
+                plugin_dir_url( __FILE__ ) . 'css/brg-wp-account-kit-public.css',
+                array(),
+                $this->version,
+                'all'
+            );
         }
 
 	/**
@@ -86,11 +100,29 @@ class Brg_Wp_Account_Kit_Public {
 	 * @since   1.0.0
 	 */
 	public function login_form(){
-        $this->login_enqueue_styles();
-        $this->login_enqueue_scripts();
 		?>
-        <a class="brg-wp-account-kit-login-option brg-wp-account-kit-login-option-email" href="https://www.accountkit.com/v1.0/basic/dialog/email_login?app_id=<?php echo $this->app_data['app_id']; ?>&redirect=<?php echo urlencode(home_url()); ?>/wp-json/brg-wp-account-kit/v1/return&state=<?php echo wp_create_nonce('sms_login'); ?>&fbAppEventsEnabled=true">Login por Email</a>
-        <a class="brg-wp-account-kit-login-option brg-wp-account-kit-login-option-sms" href="https://www.accountkit.com/v1.0/basic/dialog/sms_login?app_id=<?php echo $this->app_data['app_id']; ?>&redirect=<?php echo urlencode(home_url()); ?>/wp-json/brg-wp-account-kit/v1/return&state=<?php echo wp_create_nonce('sms_login'); ?>&fbAppEventsEnabled=true">Login por SMS</a>
+        <ul class="brg-wp-account-kit-login-options">
+            <li>
+                <!-- Facebook Account Kit by Email -->
+                <a class="fa fa-envelope-o brg-wp-account-kit-login-option-email" title="Email" href="https://www.accountkit.com/v1.0/basic/dialog/email_login?app_id=<?php echo $this->app_data['app_id']; ?>&redirect=<?php echo urlencode(home_url()); ?>/wp-json/brg-wp-account-kit/v1/account-kit/return&state=<?php echo wp_create_nonce('sms_login'); ?>&fbAppEventsEnabled=true"></a>
+            </li>
+            <li>
+                <!-- Facebook Account Kit by SMS -->
+                <a class="fa fa-phone brg-wp-account-kit-login-option-sms" title="SMS" href="https://www.accountkit.com/v1.0/basic/dialog/sms_login?app_id=<?php echo $this->app_data['app_id']; ?>&redirect=<?php echo urlencode(home_url()); ?>/wp-json/brg-wp-account-kit/v1/account-kit/return&state=<?php echo wp_create_nonce('sms_login'); ?>&fbAppEventsEnabled=true"></a>
+            </li>
+            <li>
+                <!-- Facebook Login -->
+                <a class="fa fa-facebook brg-wp-facebook-login" title="Facebook" href="/wp-json/brg-wp-account-kit/v1/facebook-login/return"></a>
+            </li>
+            <li>
+                <!-- Twitter Login -->
+                <a class="fa fa-twitter brg-wp-twitter-login" title="Twitter" href="#"></a>
+            </li>
+            <li>
+                <!-- Google Login -->
+                <a class="fa fa-google brg-wp-google-login" title="Google Plus" href="#"></a>
+            </li>
+        </ul>
 		<?php
 	}
 }

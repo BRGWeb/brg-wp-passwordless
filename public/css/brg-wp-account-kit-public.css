@@ -2,16 +2,64 @@
  * All of the CSS for your public-facing functionality should be
  * included in this file.
  */
-.brg-wp-account-kit-login-option {
-    width: 50%;
-    float: left;
-    padding-bottom: 10px;
+
+@import url(https://fonts.googleapis.com/css?family=Lato);
+@import url(https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.css);
+
+.brg-wp-account-kit-login-options {
+    width: 100%;
+    padding-bottom: 15px;
+    margin: 0 auto;
+    list-style: none;
+}
+
+.brg-wp-account-kit-login-options li {
+    display: inline;
+    padding: 0;
+}
+
+.brg-wp-account-kit-login-options a {
+    color: #fff;
+    padding: 15px 20px;
+    text-decoration: none;
 }
 
 .brg-wp-account-kit-login-option-email {
-    text-align: left;
+    background-color: #322f30;
+}
+
+.brg-wp-account-kit-login-option-email:hover {
+    background-color: #606060;
 }
 
 .brg-wp-account-kit-login-option-sms {
-    text-align: right;
+    background-color: #322f30;
+}
+
+.brg-wp-account-kit-login-option-sms:hover {
+    background-color: #238916;
+}
+
+.brg-wp-facebook-login {
+    background-color: #322f30;
+}
+
+.brg-wp-facebook-login:hover {
+    background-color: #3d5b99;
+}
+
+.brg-wp-twitter-login {
+    background-color: #322f30;
+}
+
+.brg-wp-twitter-login:hover {
+    background-color: #00aced;
+}
+
+.brg-wp-google-login {
+    background-color: #322f30;
+}
+
+.brg-wp-google-login:hover {
+    background-color: #e25714;
 }

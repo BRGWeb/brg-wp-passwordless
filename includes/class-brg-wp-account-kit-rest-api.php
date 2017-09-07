@@ -38,24 +38,36 @@ class Brg_Wp_Account_Kit_REST_API {
 
     // Register our routes.
     public function register_routes() {
-		//the route that will receive return data from facebook
-        register_rest_route($this->namespace, '/return', array(
+        register_rest_route($this->namespace, 'account-kit/return', array(
             array(
                 'methods'   => 'GET',
-                'callback'  => array( $this, 'return_function' )
+                'callback'  => array( $this, 'account_kit_return' )
             ),
         ) );
-		//the webhook that Facebook can call
-        register_rest_route( $this->namespace, '/listener', array(
+
+        register_rest_route($this->namespace, 'facebook-login/return', array(
             array(
-                'methods'   => 'POST',
-                'callback'  => array( $this, 'listener_function' ),
+                'methods'   => 'GET',
+                'callback'  => array( $this, 'facebook_login_return' )
+            ),
+        ) );
+
+        register_rest_route($this->namespace, 'twitter-login/return', array(
+            array(
+                'methods'   => 'GET',
+                'callback'  => array( $this, 'twitter_login_return' )
+            ),
+        ) );
+
+        register_rest_route($this->namespace, 'google-login/return', array(
+            array(
+                'methods'   => 'GET',
+                'callback'  => array( $this, 'google_login_return' )
             ),
         ) );
     }
 
-	//the route that will receive return data from facebook
-	public function return_function(){
+	public function account_kit_return(){
         if (!isset($_GET['status'])) {
             wp_die('<strong>Account Kit Error</strong>: "status" not informed', 'Account Kit');
         }
@@ -133,10 +145,71 @@ class Brg_Wp_Account_Kit_REST_API {
 
 	}
 
-	//the webhook that Facebook can call
-	public function listener_function(){
-		//TODO define listeners
-	}
+    public function facebook_login_return()
+    {
+        if(!session_id()) {
+            session_start();
+        }
+
+        $fb = new \Facebook\Facebook([
+          'app_id' => $this->app_data['app_id'],
+          'app_secret' => $this->app_data['app_secret'],
+          'default_graph_version' => 'v2.10',
+        ]);
+
+        $helper = $fb->getRedirectLoginHelper();
+
+        if (!array_key_exists('code', $_GET)) {
+            $permissions = ['email'];
+            $redirectUrl = htmlspecialchars(home_url() . "/wp-json/brg-wp-account-kit/v1/facebook-login/return");
+            header('Location: ' . $helper->getLoginUrl($redirectUrl, $permissions));
+            die();
+        }
+
+        try {
+            $token = $helper->getAccessToken();
+            $response = $fb->get('/me?fields=id,name,email', $token);
+
+            $user = $response->getGraphUser();
+            $id = $user->getId();
+            $name = $user->getName();
+            $email = $user->getEmail();
+
+            $uid = null;
+            if ($email) {
+                $uid = email_exists($email);
+            }
+
+            if ($uid){
+                update_user_meta($uid,'_brg_wp_account_kit_token', $token);
+            }else{
+                //first time login for this user
+                $uid = wp_create_user($name, $token, $email);
+            }
+
+            wp_set_current_user($uid, $user_login);
+            wp_set_auth_cookie($uid);
+            wp_redirect( admin_url( 'index.php' ) );
+            exit;
+        } catch(Facebook\Exceptions\FacebookResponseException $e) {
+            wp_die('<strong>Account Kit Error</strong>: ' . 'Graph returned an error: ' . $e->getMessage(), 'Account Kit');
+            exit;
+        } catch(Facebook\Exceptions\FacebookSDKException $e) {
+            wp_die('<strong>Account Kit Error</strong>: ' . 'Facebook SDK returned an error: ' . $e->getMessage(), 'Account Kit');
+            exit;
+        }
+        die(var_dump($_GET));
+    }
+
+    public function twitter_login_return()
+    {
+        var_dump('twitter', $_GET); exit();
+    }
+
+    public function google_login_return()
+    {
+        var_dump('google', $_GET); exit();
+    }
 
 	// Method to send Get request to url
 	private function doCurl($url) {

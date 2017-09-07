@@ -30,6 +30,8 @@ if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
+require plugin_dir_path( __FILE__ ) . 'vendor/autoload.php';
+
 /**
  * The code that runs during plugin activation.
  * This action is documented in includes/class-brg-wp-account-kit-activator.php

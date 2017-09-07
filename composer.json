@@ -1,0 +1,21 @@
+{
+    "name": "brgweb/account-kit",
+    "description": "WordPress plugin for passwordless registration and login with Facebook Account Kit",
+    "type": "wordpress-plugin",
+    "homepage": "http://brgweb.com.br",
+    "keywords": ["brgweb", "wordpress", "plugin", "account", "kit"],
+    "require": {
+        "php": ">=5.3.2",
+        "composer/installers": "v1.0.6",
+        "guzzlehttp/guzzle": "5.3.1",
+        "facebook/graph-sdk": "5.x-dev"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Jonathan A. Schweder",
+            "email": "jonathanschweder@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev"
+}
