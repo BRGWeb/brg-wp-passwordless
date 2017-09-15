@@ -20,52 +20,54 @@
  * @subpackage Brg_Wp_Account_Kit/public
  * @author     BRGWeb <wordpress@brgweb.com.br>
  */
-class Brg_Wp_Account_Kit_Public {
+class Brg_Wp_Account_Kit_Public
+{
 
-	/**
-	 * The ID of this plugin.
-	 *
-	 * @since    1.0.0
-	 * @access   private
-	 * @var      string    $plugin_name    The ID of this plugin.
-	 */
-	private $plugin_name;
+    /**
+     * The ID of this plugin.
+     *
+     * @since    1.0.0
+     * @access   private
+     * @var      string    $plugin_name    The ID of this plugin.
+     */
+    private $plugin_name;
 
-	/**
-	 * The version of this plugin.
-	 *
-	 * @since    1.0.0
-	 * @access   private
-	 * @var      string    $version    The current version of this plugin.
-	 */
-	private $version;
+    /**
+     * The version of this plugin.
+     *
+     * @since    1.0.0
+     * @access   private
+     * @var      string    $version    The current version of this plugin.
+     */
+    private $version;
 
-	private $app_data;
+    private $app_data;
 
-	/**
-	 * Initialize the class and set its properties.
-	 *
-	 * @since    1.0.0
-	 * @param      string    $plugin_name       The name of the plugin.
-	 * @param      string    $version    The version of this plugin.
-	 */
-	public function __construct( $plugin_name, $version, $app_data ) {
+    /**
+     * Initialize the class and set its properties.
+     *
+     * @since    1.0.0
+     * @param      string    $plugin_name       The name of the plugin.
+     * @param      string    $version    The version of this plugin.
+     */
+    public function __construct($plugin_name, $version, $app_data)
+    {
+        $this->plugin_name = $plugin_name;
+        $this->version = $version;
+        $this->app_data = $app_data;
 
-		$this->plugin_name = $plugin_name;
-		$this->version = $version;
-		$this->app_data = $app_data;
+        $this->enqueue_styles();
+        $this->enqueue_scripts();
+    }
 
-        $this->login_enqueue_styles();
-        $this->login_enqueue_scripts();
-	}
-
-	/**
-         * Register the JavaScript for the login page.
-         *
-         * @since    1.0.0
-         */
-        public function login_enqueue_scripts() {
-            wp_enqueue_script(
+    /**
+     * Register the JavaScript for the login page.
+     *
+     * @since    1.0.0
+     */
+    public function enqueue_scripts()
+    {
+        wp_enqueue_script(
                 $this->plugin_name,
                 'https://sdk.accountkit.com/pt_BR/sdk.js',
                 array( 'jquery' ),
@@ -73,34 +75,36 @@ class Brg_Wp_Account_Kit_Public {
                 false
             );
 
-            wp_enqueue_script(
+        wp_enqueue_script(
                 $this->plugin_name,
-                plugin_dir_url( __FILE__ ) . 'js/brg-wp-account-kit-public.js'
+                plugin_dir_url(__FILE__) . 'js/brg-wp-account-kit-public.js'
             );
-        }
+    }
 
-        /**
-         * Register the JavaScript for the login page.
-         *
-         * @since    1.0.0
-         */
-        public function login_enqueue_styles() {
-            wp_enqueue_style(
+    /**
+     * Register the JavaScript for the login page.
+     *
+     * @since    1.0.0
+     */
+    public function enqueue_styles()
+    {
+        wp_enqueue_style(
                 $this->plugin_name,
-                plugin_dir_url( __FILE__ ) . 'css/brg-wp-account-kit-public.css',
+                plugin_dir_url(__FILE__) . 'css/brg-wp-account-kit-public.css',
                 array(),
                 $this->version,
                 'all'
             );
-        }
+    }
 
-	/**
-	 * Loads custom fields in login form
-	 *
-	 * @since   1.0.0
-	 */
-	public function login_form(){
-		?>
+    /**
+     * Loads custom fields in login form
+     *
+     * @since   1.0.0
+     */
+    public function login_form()
+    {
+        ?>
         <ul class="brg-wp-account-kit-login-options">
             <li>
                 <!-- Facebook Account Kit by Email -->
@@ -114,15 +118,11 @@ class Brg_Wp_Account_Kit_Public {
                 <!-- Facebook Login -->
                 <a class="fa fa-facebook brg-wp-facebook-login" title="Facebook" href="/wp-json/brg-wp-account-kit/v1/facebook-login/return"></a>
             </li>
-            <!--<li>
+            <li>
                 <!-- Twitter Login -->
-                <a class="fa fa-twitter brg-wp-twitter-login" title="Twitter" href="#"></a>
-            </li>-->
-            <!--<li>
-                <!-- Google Login -->
-                <a class="fa fa-google brg-wp-google-login" title="Google Plus" href="#"></a>
-            </li>-->
+                <a class="fa fa-twitter brg-wp-twitter-login" title="Twitter" href="/wp-json/brg-wp-account-kit/v1/twitter-login/return"></a>
+            </li>
         </ul>
 		<?php
-	}
+    }
 }

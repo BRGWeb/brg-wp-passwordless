@@ -20,16 +20,17 @@
  * @subpackage Brg_Wp_Account_Kit/includes
  * @author     BRGWeb <wordpress@brgweb.com.br>
  */
-class Brg_Wp_Account_Kit_Deactivator {
+class Brg_Wp_Account_Kit_Deactivator
+{
 
-	/**
-	 * Short Description. (use period)
-	 *
-	 * Long Description.
-	 *
-	 * @since    1.0.0
-	 */
-	public static function deactivate() {
-	}
-
+    /**
+     * Short Description. (use period)
+     *
+     * Long Description.
+     *
+     * @since    1.0.0
+     */
+    public static function deactivate()
+    {
+    }
 }

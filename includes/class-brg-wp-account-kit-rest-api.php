@@ -11,69 +11,73 @@
  * @subpackage Brg_Wp_Account_Kit/includes
  * @author     BRGWeb <wordpress@brgweb.com.br>
  */
-class Brg_Wp_Account_Kit_REST_API {
+class Brg_Wp_Account_Kit_REST_API
+{
 
-	/**
-	 * The App data.
-	 *
-	 * @since    1.0.0
-	 * @access   protected
-	 * @var      array    $app_data    The Facebook Account Kit App Data.
-	 */
-	protected $app_data;
+    /**
+     * The App data.
+     *
+     * @since    1.0.0
+     * @access   protected
+     * @var      array    $app_data    The Facebook Account Kit App Data.
+     */
+    protected $app_data;
 
 
-	/**
-	 * Initialize the class and set its properties.
-	 *
-	 * @since    1.0.0
-	 * @param      string    $plugin_name       The name of the plugin.
-	 * @param      string    $version    The version of this plugin.
-	 * @param      array    $app_data    The app_data for Facebook Account kit.
-	 */
-	public function __construct($plugin_name, $version, $app_data ) {
+    /**
+     * Initialize the class and set its properties.
+     *
+     * @since    1.0.0
+     * @param      string    $plugin_name       The name of the plugin.
+     * @param      string    $version    The version of this plugin.
+     * @param      array    $app_data    The app_data for Facebook Account kit.
+     */
+    public function __construct($plugin_name, $version, $app_data)
+    {
         $this->namespace     = '/brg-wp-account-kit/v1';
-		$this->app_data = $app_data;
+        $this->app_data = $app_data;
     }
 
     // Register our routes.
-    public function register_routes() {
+    public function register_routes()
+    {
         register_rest_route($this->namespace, 'account-kit/return', array(
             array(
                 'methods'   => 'GET',
                 'callback'  => array( $this, 'account_kit_return' )
             ),
-        ) );
+        ));
 
         register_rest_route($this->namespace, 'facebook-login/return', array(
             array(
                 'methods'   => 'GET',
                 'callback'  => array( $this, 'facebook_login_return' )
             ),
-        ) );
+        ));
 
         register_rest_route($this->namespace, 'twitter-login/return', array(
             array(
                 'methods'   => 'GET',
                 'callback'  => array( $this, 'twitter_login_return' )
             ),
-        ) );
+        ));
 
         register_rest_route($this->namespace, 'google-login/return', array(
             array(
                 'methods'   => 'GET',
                 'callback'  => array( $this, 'google_login_return' )
             ),
-        ) );
+        ));
     }
 
-	public function account_kit_return(){
+    public function account_kit_return()
+    {
         if (!isset($_GET['status'])) {
             wp_die('<strong>Account Kit Error</strong>: "status" not informed', 'Account Kit');
         }
 
-		switch ($_GET['status']){
-			case 'PARTIALLY_AUTHENTICATED' :
+        switch ($_GET['status']) {
+            case 'PARTIALLY_AUTHENTICATED':
                 $token_exchange_url = 'https://graph.accountkit.com/'
                     . $this->app_data['api_version']
                     . '/access_token?'
@@ -83,32 +87,32 @@ class Brg_Wp_Account_Kit_REST_API {
                     . $this->app_data['app_id']
                     . "|"
                     . $this->app_data['app_secret'];
-				$data = $this->doCurl($token_exchange_url);
+                $data = $this->doCurl($token_exchange_url);
 
-				//data returned
-				$user_id = $data['id'];
+                //data returned
+                $user_id = $data['id'];
 
                 if (!$user_id) {
                     wp_die('<strong>Account Kit Error</strong>: invalid user id', 'Account Kit');
                 }
 
-				$user_access_token = $data['access_token'];
-				$refresh_interval = $data['token_refresh_interval_sec'];
+                $user_access_token = $data['access_token'];
+                $refresh_interval = $data['token_refresh_interval_sec'];
 
-				// Get Account Kit information
-				$appsecret_proof = hash_hmac('sha256', $user_access_token, $this->app_data['app_secret']);
+                // Get Account Kit information
+                $appsecret_proof = hash_hmac('sha256', $user_access_token, $this->app_data['app_secret']);
                 $me_endpoint_url = 'https://graph.accountkit.com/'
                     . $this->app_data['api_version'].'/me?'
                     . 'access_token='
                     . $user_access_token
                     . '&appsecret_proof='
                     . $appsecret_proof;
-				$data = $this->doCurl($me_endpoint_url);
-				$phone = isset($data['phone']) ? $data['phone']['number'] : '';
-				$email = isset($data['email']) ? $data['email']['address'] : '';
-				$username = 'ak_'.$user_id;
+                $data = $this->doCurl($me_endpoint_url);
+                $phone = isset($data['phone']) ? $data['phone']['number'] : '';
+                $email = isset($data['email']) ? $data['email']['address'] : '';
+                $username = 'ak_'.$user_id;
 
-				//check if user exists
+                //check if user exists
                 $uid = null;
                 if ($email) {
                     $uid = email_exists($email);
@@ -118,36 +122,35 @@ class Brg_Wp_Account_Kit_REST_API {
                     $uid = username_exists($username);
                 }
 
-				if ($uid){
-					//this user already authenticated through Account Kit API
-					//let's update the access_token
-					update_user_meta($uid,'_brg_wp_account_kit_token', $user_access_token);
-				}else{
-					//first time login for this user
-					$uid = wp_create_user($username, $user_access_token, $email);
-				}
-				//everything is working great! So let's set auth cookie and redirect user to admin_url();
+                if ($uid) {
+                    //this user already authenticated through Account Kit API
+                    //let's update the access_token
+                    update_user_meta($uid, '_brg_wp_account_kit_token', $user_access_token);
+                } else {
+                    //first time login for this user
+                    $uid = wp_create_user($username, $user_access_token, $email);
+                }
+                //everything is working great! So let's set auth cookie and redirect user to admin_url();
                 wp_set_current_user($uid, $user_login);
-				wp_set_auth_cookie($uid);
-                wp_redirect( admin_url( 'index.php' ) );
+                wp_set_auth_cookie($uid);
+                wp_redirect(admin_url('index.php'));
                 exit;
-			break;
-			case 'NOT_AUTHENTICATED' :
+            break;
+            case 'NOT_AUTHENTICATED':
                 wp_die('<strong>Account Kit Error</strong>: not authenticated', 'Account Kit');
-			break;
-			case 'BAD_PARAMS' :
+            break;
+            case 'BAD_PARAMS':
                 wp_die('<strong>Account Kit Error</strong>: bad params', 'Account Kit');
-			break;
-			default :
+            break;
+            default:
                 wp_die('<strong>Account Kit Error</strong>: invalid "status"', 'Account Kit');
-			break;
-		}
-
-	}
+            break;
+        }
+    }
 
     public function facebook_login_return()
     {
-        if(!session_id()) {
+        if (!session_id()) {
             session_start();
         }
 
@@ -180,21 +183,21 @@ class Brg_Wp_Account_Kit_REST_API {
                 $uid = email_exists($email);
             }
 
-            if ($uid){
-                update_user_meta($uid,'_brg_wp_account_kit_token', $token);
-            }else{
+            if ($uid) {
+                update_user_meta($uid, '_brg_wp_account_kit_token', $token);
+            } else {
                 //first time login for this user
                 $uid = wp_create_user($name, $token, $email);
             }
 
             wp_set_current_user($uid, $user_login);
             wp_set_auth_cookie($uid);
-            wp_redirect( admin_url( 'index.php' ) );
+            wp_redirect(admin_url('index.php'));
             exit;
-        } catch(Facebook\Exceptions\FacebookResponseException $e) {
+        } catch (Facebook\Exceptions\FacebookResponseException $e) {
             wp_die('<strong>Account Kit Error</strong>: ' . 'Graph returned an error: ' . $e->getMessage(), 'Account Kit');
             exit;
-        } catch(Facebook\Exceptions\FacebookSDKException $e) {
+        } catch (Facebook\Exceptions\FacebookSDKException $e) {
             wp_die('<strong>Account Kit Error</strong>: ' . 'Facebook SDK returned an error: ' . $e->getMessage(), 'Account Kit');
             exit;
         }
@@ -203,21 +206,76 @@ class Brg_Wp_Account_Kit_REST_API {
 
     public function twitter_login_return()
     {
-        var_dump('twitter', $_GET); exit();
+        if (!session_id()) {
+            session_start();
+        }
+
+        $settings = array(
+            'oauth_access_token' => "76075579-R4GhVs1BpSPeQARetARJnGy8AXDsfDLRhF0xsmVYU",
+            'oauth_access_token_secret' => "x2STg9Ks9iw7Mjl4wQNp1wJFd5RZ1S0o9pHqhF38Vba5d",
+            'consumer_key' => "q1fA955FdAKMM89nPOZGgV9Wx",
+            'consumer_secret' => "0rfeqZELGK1eXuYRwHR2097VJCXF79158yCdpMhV1c9fmoB1hB"
+        );
+        $twitter = new TwitterAPIExchange($settings);
+
+        if (!array_key_exists('oauth_verifier', $_GET)) {
+            $actual_link = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+            $url = 'https://api.twitter.com/oauth/request_token';
+            $method = 'POST';
+            $postfields = array(
+                'oauth_callback' => urlencode($actual_link),
+            );
+            $result = $twitter->buildOauth($url, $method)
+                ->setPostfields($postfields)
+                ->performRequest();
+
+            header('Location: ' . 'https://api.twitter.com/oauth/authenticate?' . $result);
+            die();
+        }
+
+        if (array_key_exists('oauth_verifier', $_GET)) {
+            $verifier = $_GET['oauth_verifier'];
+            $token = $_GET['oauth_token'];
+            $url = 'https://api.twitter.com/oauth/access_token';
+            $method = 'POST';
+            $postfields = array(
+                'oauth_verifier' => $verifier,
+                'oauth_token' => $token
+            );
+
+            $result = $twitter->buildOauth($url, $method)
+                ->setPostfields($postfields)
+                ->performRequest();
+            parse_str($result, $token_response);
+
+            die(var_dump($token_response, $result));
+            $url = 'https://api.twitter.com/1.1/account/verify_credentials.json';
+            $getfield = '?oauth_token=' . $token_response['oauth_token'];
+            $requestMethod = 'GET';
+            $result = $twitter->setGetfield($getfield)
+                ->buildOauth($url, $requestMethod)
+                ->performRequest();
+            var_dump('final', $result); exit();
+        }
+
+        wp_die('<strong>Account Kit Error</strong>: Invalid params', 'Account Kit');
+        exit;
     }
 
     public function google_login_return()
     {
-        var_dump('google', $_GET); exit();
+        var_dump('google', $_GET);
+        exit();
     }
 
-	// Method to send Get request to url
-	private function doCurl($url) {
-	  $ch = curl_init();
-	  curl_setopt($ch, CURLOPT_URL, $url);
-	  curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-	  $data = json_decode(curl_exec($ch), true);
-	  curl_close($ch);
-	  return $data;
-	}
+    // Method to send Get request to url
+    private function doCurl($url)
+    {
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $data = json_decode(curl_exec($ch), true);
+        curl_close($ch);
+        return $data;
+    }
 }

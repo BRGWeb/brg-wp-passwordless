@@ -20,11 +20,12 @@
  * @subpackage Brg_Wp_Account_Kit/includes
  * @author     BRGWeb <wordpress@brgweb.com.br>
  */
-class Brg_Wp_Account_Kit_Settings {
-
+class Brg_Wp_Account_Kit_Settings
+{
     protected $options;
 
-    public function __construct() {
+    public function __construct()
+    {
         add_action('admin_menu', array($this, 'add_plugin_page'));
         add_action('admin_init', array($this, 'page_init'));
     }
@@ -52,16 +53,14 @@ class Brg_Wp_Account_Kit_Settings {
      */
     public function create_admin_page()
     {
-        $this->options = get_option('brg-wp-account-kit-settings');
-        ?>
+        $this->options = get_option('brg-wp-account-kit-settings'); ?>
         <div class="wrap">
             <h1>Account Kit Settings</h1>
             <form method="post" action="options.php">
             <?php
                 settings_fields('brg-wp-account-kit-settings');
-                do_settings_sections('brg-wp-account-kit-settings-admin');
-                submit_button();
-            ?>
+        do_settings_sections('brg-wp-account-kit-settings-admin');
+        submit_button(); ?>
             </form>
         </div>
         <?php
@@ -126,20 +125,24 @@ class Brg_Wp_Account_Kit_Settings {
      * @param array $input Contains all settings fields as array keys
      * @since 1.0.0
      */
-    public function sanitize( $input )
+    public function sanitize($input)
     {
         $new_input = array();
-        if( isset( $input['app_id'] ) )
-            $new_input['app_id'] = absint( $input['app_id'] );
+        if (isset($input['app_id'])) {
+            $new_input['app_id'] = absint($input['app_id']);
+        }
 
-        if( isset( $input['api_version'] ) )
-            $new_input['api_version'] = sanitize_text_field( $input['api_version'] );
+        if (isset($input['api_version'])) {
+            $new_input['api_version'] = sanitize_text_field($input['api_version']);
+        }
 
-        if( isset( $input['app_secret'] ) )
-            $new_input['app_secret'] = sanitize_text_field( $input['app_secret'] );
+        if (isset($input['app_secret'])) {
+            $new_input['app_secret'] = sanitize_text_field($input['app_secret']);
+        }
 
-        if( isset( $input['client_token'] ) )
-            $new_input['client_token'] = sanitize_text_field( $input['client_token'] );
+        if (isset($input['client_token'])) {
+            $new_input['client_token'] = sanitize_text_field($input['client_token']);
+        }
 
         return $new_input;
     }
@@ -163,7 +166,7 @@ class Brg_Wp_Account_Kit_Settings {
     {
         printf(
             '<input type="text" id="app_id" name="brg-wp-account-kit-settings[app_id]" value="%s" />',
-            isset( $this->options['app_id'] ) ? esc_attr( $this->options['app_id']) : ''
+            isset($this->options['app_id']) ? esc_attr($this->options['app_id']) : ''
         );
     }
 
@@ -176,7 +179,7 @@ class Brg_Wp_Account_Kit_Settings {
     {
         printf(
             '<input type="text" id="api_version" name="brg-wp-account-kit-settings[api_version]" value="%s" />',
-            isset( $this->options['api_version'] ) ? esc_attr( $this->options['api_version']) : ''
+            isset($this->options['api_version']) ? esc_attr($this->options['api_version']) : ''
         );
     }
 
@@ -189,7 +192,7 @@ class Brg_Wp_Account_Kit_Settings {
     {
         printf(
             '<input type="text" id="title" name="brg-wp-account-kit-settings[app_secret]" value="%s" />',
-            isset( $this->options['app_secret'] ) ? esc_attr( $this->options['app_secret']) : ''
+            isset($this->options['app_secret']) ? esc_attr($this->options['app_secret']) : ''
         );
     }
 
@@ -202,7 +205,7 @@ class Brg_Wp_Account_Kit_Settings {
     {
         printf(
             '<input type="text" id="title" name="brg-wp-account-kit-settings[client_token]" value="%s" />',
-            isset( $this->options['client_token'] ) ? esc_attr( $this->options['client_token']) : ''
+            isset($this->options['client_token']) ? esc_attr($this->options['client_token']) : ''
         );
     }
 }
