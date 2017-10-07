@@ -59,8 +59,8 @@ class Brg_Wp_Account_Kit_Settings
             <form method="post" action="options.php">
             <?php
                 settings_fields('brg-wp-account-kit-settings');
-                do_settings_sections('brg-wp-account-kit-settings-admin');
-                submit_button(); ?>
+        do_settings_sections('brg-wp-account-kit-settings-admin');
+        submit_button(); ?>
             </form>
         </div>
         <?php
