@@ -287,13 +287,13 @@ class Brg_Wp_Account_Kit_REST_API
     {
         session_start();
 
-        $actual_link = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
         $config = [
-            'callback' => $actual_link . '?hauth.done=google',
+            'callback' => site_url() . '/wp-json/brg-wp-account-kit/v1/google-login/return?hauth.done=google',
             'keys' => [
                 'id' => $this->app_data['google_application_id'],
-                'secret' => $this->app_data['google_application_secret'],
-                'scope' => 'profile https://www.googleapis.com/auth/plus.login https://www.googleapis.com/auth/plus.profile.emails.read']
+                'secret' => $this->app_data['google_application_secret']
+            ],
+            'scope' => 'profile https://www.googleapis.com/auth/plus.login https://www.googleapis.com/auth/plus.profile.emails.read'
         ];
 
         $adapter = new Hybridauth\Provider\Google($config);
