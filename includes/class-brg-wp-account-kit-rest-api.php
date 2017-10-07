@@ -201,7 +201,6 @@ class Brg_Wp_Account_Kit_REST_API
             wp_die('<strong>Account Kit Error</strong>: ' . 'Facebook SDK returned an error: ' . $e->getMessage(), 'Account Kit');
             exit;
         }
-        die(var_dump($_GET));
     }
 
     public function twitter_login_return()
@@ -211,11 +210,12 @@ class Brg_Wp_Account_Kit_REST_API
         }
 
         $settings = array(
-            'oauth_access_token' => "76075579-R4GhVs1BpSPeQARetARJnGy8AXDsfDLRhF0xsmVYU",
-            'oauth_access_token_secret' => "x2STg9Ks9iw7Mjl4wQNp1wJFd5RZ1S0o9pHqhF38Vba5d",
-            'consumer_key' => "q1fA955FdAKMM89nPOZGgV9Wx",
-            'consumer_secret' => "0rfeqZELGK1eXuYRwHR2097VJCXF79158yCdpMhV1c9fmoB1hB"
+            'oauth_access_token' => $this->app_data['twitter_oauth_access_token'],
+            'oauth_access_token_secret' => $this->app_data['twitter_oauth_access_token_secret'],
+            'consumer_key' => $this->app_data['twitter_consumer_key'],
+            'consumer_secret' => $this->app_data['twitter_consumer_secret']
         );
+
         $twitter = new TwitterAPIExchange($settings);
 
         if (!array_key_exists('oauth_verifier', $_GET)) {
@@ -248,14 +248,35 @@ class Brg_Wp_Account_Kit_REST_API
                 ->performRequest();
             parse_str($result, $token_response);
 
-            die(var_dump($token_response, $result));
-            $url = 'https://api.twitter.com/1.1/account/verify_credentials.json';
-            $getfield = '?oauth_token=' . $token_response['oauth_token'];
-            $requestMethod = 'GET';
-            $result = $twitter->setGetfield($getfield)
-                ->buildOauth($url, $requestMethod)
-                ->performRequest();
-            var_dump('final', $result); exit();
+            $connection = new \Abraham\TwitterOAuth\TwitterOAuth(
+                $settings['consumer_key'],
+                $settings['consumer_secret'],
+                $token_response['oauth_token'],
+                $token_response['oauth_token_secret']
+            );
+
+            $user = $connection->get("account/verify_credentials", ['include_email' => 'true']);
+
+            $id = $user->id;
+            $name = $user->name;
+            $email = $user->email;
+
+            $uid = null;
+            if ($email) {
+                $uid = email_exists($email);
+            }
+
+            if ($uid) {
+                update_user_meta($uid, '_brg_wp_account_kit_token', $token);
+            } else {
+                //first time login for this user
+                $uid = wp_create_user($name, $token, $email);
+            }
+
+            wp_set_current_user($uid, $user_login);
+            wp_set_auth_cookie($uid);
+            wp_redirect(admin_url('index.php'));
+            exit;
         }
 
         wp_die('<strong>Account Kit Error</strong>: Invalid params', 'Account Kit');
@@ -264,8 +285,33 @@ class Brg_Wp_Account_Kit_REST_API
 
     public function google_login_return()
     {
-        var_dump('google', $_GET);
-        exit();
+        session_start();
+
+        $actual_link = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+        $config = [
+            'callback' => $actual_link . '?hauth.done=google',
+            'keys' => [
+                'id' => $this->app_data['google_application_id'],
+                'secret' => $this->app_data['google_application_secret'],
+                'scope' => 'profile https://www.googleapis.com/auth/plus.login https://www.googleapis.com/auth/plus.profile.emails.read']
+        ];
+
+        $adapter = new Hybridauth\Provider\Google($config);
+
+        $adapter->authenticate();
+
+        $user = $adapter->getUserProfile();
+
+        $uid = email_exists($user->email);
+
+        if (!$uid) {
+            $uid = wp_create_user($user->displayName, $user->identifier, $user->email);
+        }
+
+        wp_set_current_user($uid, $user_login);
+        wp_set_auth_cookie($uid);
+        wp_redirect(admin_url('index.php'));
+        exit;
     }
 
     // Method to send Get request to url

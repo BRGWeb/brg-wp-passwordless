@@ -19,47 +19,52 @@
 }
 
 .brg-wp-account-kit-login-options a {
-    color: #fff;
+    color: #555d66;
     padding: 15px 20px;
     text-decoration: none;
 }
 
 .brg-wp-account-kit-login-option-email {
-    background-color: #322f30;
+    background-color: #fff;
 }
 
 .brg-wp-account-kit-login-option-email:hover {
+    color: #fff;
     background-color: #606060;
 }
 
 .brg-wp-account-kit-login-option-sms {
-    background-color: #322f30;
+    background-color: #fff;
 }
 
 .brg-wp-account-kit-login-option-sms:hover {
+    color: #fff;
     background-color: #238916;
 }
 
 .brg-wp-facebook-login {
-    background-color: #322f30;
+    background-color: #fff;
 }
 
 .brg-wp-facebook-login:hover {
+    color: #fff;
     background-color: #3d5b99;
 }
 
 .brg-wp-twitter-login {
-    background-color: #322f30;
+    background-color: #fff;
 }
 
 .brg-wp-twitter-login:hover {
+    color: #fff;
     background-color: #00aced;
 }
 
 .brg-wp-google-login {
-    background-color: #322f30;
+    background-color: #fff;
 }
 
 .brg-wp-google-login:hover {
+    color: #fff;
     background-color: #e25714;
 }

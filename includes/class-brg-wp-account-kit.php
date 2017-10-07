@@ -95,6 +95,60 @@ class Brg_Wp_Account_Kit
     protected $client_token;
 
     /**
+     * Twitter Oauth Access Token.
+     *
+     * @since    1.0.0
+     * @access   protected
+     * @var      string    $twitter_oauth_access_token    Twitter Oauth Access Token.
+     */
+    protected $twitter_oauth_access_token;
+
+    /**
+     * Twitter Oauth Access Secret.
+     *
+     * @since    1.0.0
+     * @access   protected
+     * @var      string    $twitter_oauth_access_token_secret    Twitter Oauth Access Secret.
+     */
+    protected $twitter_oauth_access_token_secret;
+
+    /**
+     * Twitter Consumer Key.
+     *
+     * @since    1.0.0
+     * @access   protected
+     * @var      string    $twitter_consumer_key    Twitter Consumer Key.
+     */
+    protected $twitter_consumer_key;
+
+    /**
+     * Twitter Consumer Secret.
+     *
+     * @since    1.0.0
+     * @access   protected
+     * @var      string    $twitter_consumer_secret    Twitter Consumer Secret.
+     */
+    protected $twitter_consumer_secret;
+
+    /**
+     * Google Application Id.
+     *
+     * @since    1.0.0
+     * @access   protected
+     * @var      string    $google_application_id    Google Application Id.
+     */
+    protected $google_application_id;
+
+    /**
+     * Google Application Secret.
+     *
+     * @since    1.0.0
+     * @access   protected
+     * @var      string    $google_application_secret    Google Application Secret.
+     */
+    protected $google_application_secret;
+
+    /**
      * Define the core functionality of the plugin.
      *
      * Set the plugin name and the plugin version that can be used throughout the plugin.
@@ -113,7 +167,13 @@ class Brg_Wp_Account_Kit
         $this->app_id = $options['app_id'];
         $this->api_version = $options['api_version'];
         $this->app_secret = $options['app_secret'];
-        $this->client_token= $options['client_token'];
+        $this->client_token = $options['client_token'];
+        $this->twitter_oauth_access_token = $options['twitter_oauth_access_token'];
+        $this->twitter_oauth_access_token_secret = $options['twitter_oauth_access_token_secret'];
+        $this->twitter_consumer_key = $options['twitter_consumer_key'];
+        $this->twitter_consumer_secret = $options['twitter_consumer_secret'];
+        $this->google_application_id = $options['google_application_id'];
+        $this->google_application_secret = $options['google_application_secret'];
 
         $this->load_dependencies();
         $this->set_locale();
@@ -218,11 +278,17 @@ class Brg_Wp_Account_Kit
     private function define_public_hooks()
     {
         $app_data = array(
-            'app_id'    =>    $this->app_id,
-            'api_version'    =>    $this->api_version,
-            'app_secret'    =>    $this->app_secret,
-            'client_token'    =>  $this->client_token,
-            );
+            'app_id' => $this->app_id,
+            'api_version' => $this->api_version,
+            'app_secret' => $this->app_secret,
+            'client_token' => $this->client_token,
+            'twitter_oauth_access_token' => $this->twitter_oauth_access_token,
+            'twitter_oauth_access_token_secret' => $this->twitter_oauth_access_token_secret,
+            'twitter_consumer_key' => $this->twitter_consumer_key,
+            'twitter_consumer_secret' => $this->twitter_consumer_secret,
+            'google_application_id' => $this->google_application_id,
+            'google_application_secret' => $this->google_application_secret
+        );
 
         $plugin_public = new Brg_Wp_Account_Kit_Public($this->get_plugin_name(), $this->get_version(), $app_data);
 
@@ -244,7 +310,13 @@ class Brg_Wp_Account_Kit
             'api_version'    =>    $this->api_version,
             'app_secret'    =>    $this->app_secret,
             'client_token'    =>  $this->client_token,
-            );
+            'twitter_oauth_access_token' => $this->twitter_oauth_access_token,
+            'twitter_oauth_access_token_secret' => $this->twitter_oauth_access_token_secret,
+            'twitter_consumer_key' => $this->twitter_consumer_key,
+            'twitter_consumer_secret' => $this->twitter_consumer_secret,
+            'google_application_id' => $this->google_application_id,
+            'google_application_secret' => $this->google_application_secret
+        );
 
         $plugin_rest_api = new Brg_Wp_Account_Kit_REST_API($this->get_plugin_name(), $this->get_version(), $app_data);
         $this->loader->add_action('rest_api_init', $plugin_rest_api, 'register_routes');

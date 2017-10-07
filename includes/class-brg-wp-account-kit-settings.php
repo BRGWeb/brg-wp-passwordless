@@ -59,8 +59,8 @@ class Brg_Wp_Account_Kit_Settings
             <form method="post" action="options.php">
             <?php
                 settings_fields('brg-wp-account-kit-settings');
-        do_settings_sections('brg-wp-account-kit-settings-admin');
-        submit_button(); ?>
+                do_settings_sections('brg-wp-account-kit-settings-admin');
+                submit_button(); ?>
             </form>
         </div>
         <?php
@@ -117,6 +117,54 @@ class Brg_Wp_Account_Kit_Settings
             'brg-wp-account-kit-settings-admin',
             'brg-wp-account-kit-settings'
         );
+
+        add_settings_field(
+            'twitter_oauth_access_token',
+            'Twitter Oauth Access Token',
+            array( $this, 'twitter_oauth_access_token_callback' ),
+            'brg-wp-account-kit-settings-admin',
+            'brg-wp-account-kit-settings'
+        );
+
+        add_settings_field(
+            'twitter_oauth_access_token_secret',
+            'Twitter Oauth Access Token Secret',
+            array( $this, 'twitter_oauth_access_token_secret_callback' ),
+            'brg-wp-account-kit-settings-admin',
+            'brg-wp-account-kit-settings'
+        );
+
+        add_settings_field(
+            'twitter_consumer_key',
+            'Twitter Consumer Key',
+            array( $this, 'twitter_consumer_key_callback' ),
+            'brg-wp-account-kit-settings-admin',
+            'brg-wp-account-kit-settings'
+        );
+
+        add_settings_field(
+            'twitter_consumer_secret',
+            'Twitter Consumer Secret',
+            array( $this, 'twitter_consumer_secret_callback' ),
+            'brg-wp-account-kit-settings-admin',
+            'brg-wp-account-kit-settings'
+        );
+
+        add_settings_field(
+            'google_application_id',
+            'Google Application Id',
+            array( $this, 'google_application_id_callback' ),
+            'brg-wp-account-kit-settings-admin',
+            'brg-wp-account-kit-settings'
+        );
+
+        add_settings_field(
+            'google_application_secret',
+            'Google Application Secret',
+            array( $this, 'google_application_secret_callback' ),
+            'brg-wp-account-kit-settings-admin',
+            'brg-wp-account-kit-settings'
+        );
     }
 
     /**
@@ -142,6 +190,30 @@ class Brg_Wp_Account_Kit_Settings
 
         if (isset($input['client_token'])) {
             $new_input['client_token'] = sanitize_text_field($input['client_token']);
+        }
+
+        if (isset($input['twitter_oauth_access_token'])) {
+            $new_input['twitter_oauth_access_token'] = sanitize_text_field($input['twitter_oauth_access_token']);
+        }
+
+        if (isset($input['twitter_oauth_access_token_secret'])) {
+            $new_input['twitter_oauth_access_token_secret'] = sanitize_text_field($input['twitter_oauth_access_token_secret']);
+        }
+
+        if (isset($input['twitter_consumer_key'])) {
+            $new_input['twitter_consumer_key'] = sanitize_text_field($input['twitter_consumer_key']);
+        }
+
+        if (isset($input['twitter_consumer_secret'])) {
+            $new_input['twitter_consumer_secret'] = sanitize_text_field($input['twitter_consumer_secret']);
+        }
+
+        if (isset($input['google_application_id'])) {
+            $new_input['google_application_id'] = sanitize_text_field($input['google_application_id']);
+        }
+
+        if (isset($input['google_application_secret'])) {
+            $new_input['google_application_secret'] = sanitize_text_field($input['google_application_secret']);
         }
 
         return $new_input;
@@ -178,7 +250,7 @@ class Brg_Wp_Account_Kit_Settings
     public function api_version_callback()
     {
         printf(
-            '<input type="text" id="api_version" name="brg-wp-account-kit-settings[api_version]" value="%s" />',
+            '<input type="text" name="brg-wp-account-kit-settings[api_version]" value="%s" />',
             isset($this->options['api_version']) ? esc_attr($this->options['api_version']) : ''
         );
     }
@@ -191,7 +263,7 @@ class Brg_Wp_Account_Kit_Settings
     public function api_secret_callback()
     {
         printf(
-            '<input type="text" id="title" name="brg-wp-account-kit-settings[app_secret]" value="%s" />',
+            '<input type="text" name="brg-wp-account-kit-settings[app_secret]" value="%s" />',
             isset($this->options['app_secret']) ? esc_attr($this->options['app_secret']) : ''
         );
     }
@@ -204,8 +276,86 @@ class Brg_Wp_Account_Kit_Settings
     public function client_token_callback()
     {
         printf(
-            '<input type="text" id="title" name="brg-wp-account-kit-settings[client_token]" value="%s" />',
+            '<input type="text" name="brg-wp-account-kit-settings[client_token]" value="%s" />',
             isset($this->options['client_token']) ? esc_attr($this->options['client_token']) : ''
+        );
+    }
+
+    /**
+     * Get the settings option array and print one of its values
+     *
+     * @since 1.0.0
+     */
+    public function twitter_oauth_access_token_callback()
+    {
+        printf(
+            '<input type="text" name="brg-wp-account-kit-settings[twitter_oauth_access_token]" value="%s" />',
+            isset($this->options['twitter_oauth_access_token']) ? esc_attr($this->options['twitter_oauth_access_token']) : ''
+        );
+    }
+
+    /**
+     * Get the settings option array and print one of its values
+     *
+     * @since 1.0.0
+     */
+    public function twitter_oauth_access_token_secret_callback()
+    {
+        printf(
+            '<input type="text" name="brg-wp-account-kit-settings[twitter_oauth_access_token_secret]" value="%s" />',
+            isset($this->options['twitter_oauth_access_token_secret']) ? esc_attr($this->options['twitter_oauth_access_token_secret']) : ''
+        );
+    }
+
+    /**
+     * Get the settings option array and print one of its values
+     *
+     * @since 1.0.0
+     */
+    public function twitter_consumer_key_callback()
+    {
+        printf(
+            '<input type="text" name="brg-wp-account-kit-settings[twitter_consumer_key]" value="%s" />',
+            isset($this->options['twitter_consumer_key']) ? esc_attr($this->options['twitter_consumer_key']) : ''
+        );
+    }
+
+    /**
+     * Get the settings option array and print one of its values
+     *
+     * @since 1.0.0
+     */
+    public function twitter_consumer_secret_callback()
+    {
+        printf(
+            '<input type="text" name="brg-wp-account-kit-settings[twitter_consumer_secret]" value="%s" />',
+            isset($this->options['twitter_consumer_secret']) ? esc_attr($this->options['twitter_consumer_secret']) : ''
+        );
+    }
+
+    /**
+     * Get the settings option array and print one of its values
+     *
+     * @since 1.0.0
+     */
+    public function google_application_id_callback()
+    {
+        printf(
+            '<input type="text" name="brg-wp-account-kit-settings[google_application_id]" value="%s" />',
+            isset($this->options['google_application_id']) ? esc_attr($this->options['google_application_id']) : ''
+        );
+    }
+
+    /**
+     * Get the settings option array and print one of its values
+     *
+     * @since 1.0.0
+     */
+    public function google_application_secret_callback()
+    {
+        printf(
+            '<input type="text" name="brg-wp-account-kit-settings[google_application_secret]" value="%s" />',
+            isset($this->options['google_application_secret']) ? esc_attr($this->options['google_application_secret']) : ''
         );
     }
 }

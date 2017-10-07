@@ -122,6 +122,10 @@ class Brg_Wp_Account_Kit_Public
                 <!-- Twitter Login -->
                 <a class="fa fa-twitter brg-wp-twitter-login" title="Twitter" href="/wp-json/brg-wp-account-kit/v1/twitter-login/return"></a>
             </li>
+            <li>
+                <!-- Google Login -->
+                <a class="fa fa-google brg-wp-google-login" title="Google" href="/wp-json/brg-wp-account-kit/v1/google-login/return"></a>
+            </li>
         </ul>
 		<?php
     }
