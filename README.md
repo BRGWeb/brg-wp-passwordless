@@ -9,6 +9,8 @@ WordPress plugin for passwordless registration and login with
 #### Plugin in active development. Should not be used in production... yet
 
 ## Requirements
+* PHP >= 7.0
+* HTTPS (APIs won't return to insecure connections)
 * [Docker](https://www.docker.com/get-docker) / [Docker Compose](https://docs.docker.com/compose/install/) - for container version
 * [Composer](https://getcomposer.org/download/)
 
