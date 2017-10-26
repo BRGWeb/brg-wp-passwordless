@@ -3,14 +3,14 @@ version: '3.1'
 services:
 
   wordpress:
-    image: wordpress
+    build: .
     container_name: brgweb_wordpress
     links:
         - db
     depends_on:
         - db
     volumes:
-        - ..:/var/www/html/wp-content/plugins
+        - .:/var/www/html/wp-content/plugins
     ports:
         - 80:80
     environment:
