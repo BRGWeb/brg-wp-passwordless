@@ -41,11 +41,6 @@ After instalation activate the plugin in wp-admin as usual.
 
 ## Apps callbacks
 
-Facebook:
-https://<your-site>/wp-json/brg-wp-account-kit/v1/facebook-login/return
-
-Twitter:
-https://<your-site>/wp-json/brg-wp-account-kit/v1/twitter-login/return
-
-Google:
-https://<your-site>/wp-json/brg-wp-account-kit/v1/google-login/return?hauth.done=google
+ * Facebook `https://your-domain/wp-json/brg-wp-account-kit/v1/facebook-login/return`
+ * Twitter `https://my-domain/wp-json/brg-wp-account-kit/v1/twitter-login/return`
+ * Google `https://my-domain/wp-json/brg-wp-account-kit/v1/google-login/return?hauth.done=google`
