@@ -17,17 +17,24 @@ WordPress plugin for passwordless registration and login with
 
 ## Instalation
 
-Container Version
+Clone the repository inside `wp-content/plugins`
+
+```sh
+$ cd wp-content/plugins
+$ git clone https://github.com/BRGWeb/brg-wp-passwordless.git
 ```
-git clone https://github.com/BRGWeb/brg-wp-passwordless.git
-cd brg-wp-paswordless
-docker-compose up -d
+
+Get composer
+
+```sh
+$ wget http://getcomposer.org/composer.phar
+$ php composer.phar install
 ```
-Standard plugin version
+
+Optional: If you prefer use Docker, start project using `docker-compose`
+```sh
+$ cd brg-wp-paswordless
+$ docker-compose up -d
 ```
-#in wp-content/plugins
-git clone https://github.com/BRGWeb/brg-wp-passwordless.git
-cd brg-wp-paswordless
-composer.phar install
-```
+
 After instalation activate the plugin in wp-admin as usual.
