@@ -21,7 +21,7 @@
             "composer/composer": "1.0.*@dev",
             "phpunit/phpunit": "3.7.*"
         },
-        "time": "2013-08-20T04:37:09+00:00",
+        "time": "2013-08-20 04:37:09",
         "type": "composer-installer",
         "extra": {
             "class": "Composer\\Installers\\Installer",
@@ -29,7 +29,7 @@
                 "dev-master": "1.0-dev"
             }
         },
-        "installation-source": "source",
+        "installation-source": "dist",
         "autoload": {
             "psr-0": {
                 "Composer\\Installers\\": "src/"
@@ -75,62 +75,6 @@
         ]
     },
     {
-        "name": "abraham/twitteroauth",
-        "version": "dev-master",
-        "version_normalized": "9999999-dev",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/abraham/twitteroauth.git",
-            "reference": "bb245253d41cb9a170a43f92021774f67efe599a"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/abraham/twitteroauth/zipball/bb245253d41cb9a170a43f92021774f67efe599a",
-            "reference": "bb245253d41cb9a170a43f92021774f67efe599a",
-            "shasum": ""
-        },
-        "require": {
-            "ext-curl": "*",
-            "php": "^5.6 || ^7.0"
-        },
-        "require-dev": {
-            "phpmd/phpmd": "~2.6",
-            "phpunit/phpunit": "~5.7",
-            "squizlabs/php_codesniffer": "~3.0"
-        },
-        "time": "2017-08-01T16:14:18+00:00",
-        "type": "library",
-        "installation-source": "source",
-        "autoload": {
-            "psr-4": {
-                "Abraham\\TwitterOAuth\\": "src"
-            }
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "Abraham Williams",
-                "email": "abraham@abrah.am",
-                "homepage": "https://abrah.am",
-                "role": "Developer"
-            }
-        ],
-        "description": "The most popular PHP library for use with the Twitter OAuth REST API.",
-        "homepage": "https://twitteroauth.com",
-        "keywords": [
-            "Twitter API",
-            "Twitter oAuth",
-            "api",
-            "oauth",
-            "rest",
-            "social",
-            "twitter"
-        ]
-    },
-    {
         "name": "facebook/graph-sdk",
         "version": "5.x-dev",
         "version_normalized": "5.9999999.9999999.9999999-dev",
@@ -157,7 +101,7 @@
             "guzzlehttp/guzzle": "Allows for implementation of the Guzzle HTTP client",
             "paragonie/random_compat": "Provides a better CSPRNG option in PHP 5"
         },
-        "time": "2017-08-16T17:28:07+00:00",
+        "time": "2017-08-16 17:28:07",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -191,6 +135,110 @@
         ]
     },
     {
+        "name": "abraham/twitteroauth",
+        "version": "dev-master",
+        "version_normalized": "9999999-dev",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/abraham/twitteroauth.git",
+            "reference": "6a2a9de7af76e53ce5178d6a97a051781d9f9143"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/abraham/twitteroauth/zipball/6a2a9de7af76e53ce5178d6a97a051781d9f9143",
+            "reference": "6a2a9de7af76e53ce5178d6a97a051781d9f9143",
+            "shasum": ""
+        },
+        "require": {
+            "ext-curl": "*",
+            "php": "^5.6 || ^7.0"
+        },
+        "require-dev": {
+            "phpmd/phpmd": "~2.6",
+            "phpunit/phpunit": "~5.7",
+            "squizlabs/php_codesniffer": "~3.0"
+        },
+        "time": "2017-10-18 14:51:39",
+        "type": "library",
+        "installation-source": "source",
+        "autoload": {
+            "psr-4": {
+                "Abraham\\TwitterOAuth\\": "src"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Abraham Williams",
+                "email": "abraham@abrah.am",
+                "homepage": "https://abrah.am",
+                "role": "Developer"
+            }
+        ],
+        "description": "The most popular PHP library for use with the Twitter OAuth REST API.",
+        "homepage": "https://twitteroauth.com",
+        "keywords": [
+            "Twitter API",
+            "Twitter oAuth",
+            "api",
+            "oauth",
+            "rest",
+            "social",
+            "twitter"
+        ]
+    },
+    {
+        "name": "psr/cache",
+        "version": "dev-master",
+        "version_normalized": "9999999-dev",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/php-fig/cache.git",
+            "reference": "78c5a01ddbf11cf731f1338a4f5aba23b14d5b47"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/php-fig/cache/zipball/78c5a01ddbf11cf731f1338a4f5aba23b14d5b47",
+            "reference": "78c5a01ddbf11cf731f1338a4f5aba23b14d5b47",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.3.0"
+        },
+        "time": "2016-10-13 14:48:10",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "1.0.x-dev"
+            }
+        },
+        "installation-source": "source",
+        "autoload": {
+            "psr-4": {
+                "Psr\\Cache\\": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "PHP-FIG",
+                "homepage": "http://www.php-fig.org/"
+            }
+        ],
+        "description": "Common interface for caching libraries",
+        "keywords": [
+            "cache",
+            "psr",
+            "psr-6"
+        ]
+    },
+    {
         "name": "psr/http-message",
         "version": "dev-master",
         "version_normalized": "9999999-dev",
@@ -208,7 +256,7 @@
         "require": {
             "php": ">=5.3.0"
         },
-        "time": "2016-08-06T14:39:51+00:00",
+        "time": "2016-08-06 14:39:51",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -243,66 +291,18 @@
         ]
     },
     {
-        "name": "psr/cache",
-        "version": "dev-master",
-        "version_normalized": "9999999-dev",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/php-fig/cache.git",
-            "reference": "78c5a01ddbf11cf731f1338a4f5aba23b14d5b47"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/php-fig/cache/zipball/78c5a01ddbf11cf731f1338a4f5aba23b14d5b47",
-            "reference": "78c5a01ddbf11cf731f1338a4f5aba23b14d5b47",
-            "shasum": ""
-        },
-        "require": {
-            "php": ">=5.3.0"
-        },
-        "time": "2016-10-13T14:48:10+00:00",
-        "type": "library",
-        "extra": {
-            "branch-alias": {
-                "dev-master": "1.0.x-dev"
-            }
-        },
-        "installation-source": "source",
-        "autoload": {
-            "psr-4": {
-                "Psr\\Cache\\": "src/"
-            }
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "PHP-FIG",
-                "homepage": "http://www.php-fig.org/"
-            }
-        ],
-        "description": "Common interface for caching libraries",
-        "keywords": [
-            "cache",
-            "psr",
-            "psr-6"
-        ]
-    },
-    {
         "name": "guzzlehttp/psr7",
         "version": "dev-master",
         "version_normalized": "9999999-dev",
         "source": {
             "type": "git",
             "url": "https://github.com/guzzle/psr7.git",
-            "reference": "b27e0bdc20177262121f88a49d5bb135f3e589c0"
+            "reference": "d2537c86fa8b004c29e9b9f5e10028f0a29df101"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/guzzle/psr7/zipball/b27e0bdc20177262121f88a49d5bb135f3e589c0",
-            "reference": "b27e0bdc20177262121f88a49d5bb135f3e589c0",
+            "url": "https://api.github.com/repos/guzzle/psr7/zipball/d2537c86fa8b004c29e9b9f5e10028f0a29df101",
+            "reference": "d2537c86fa8b004c29e9b9f5e10028f0a29df101",
             "shasum": ""
         },
         "require": {
@@ -315,7 +315,7 @@
         "require-dev": {
             "phpunit/phpunit": "~4.0"
         },
-        "time": "2017-10-03T15:18:16+00:00",
+        "time": "2017-10-07 03:19:56",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -378,7 +378,7 @@
         "require-dev": {
             "phpunit/phpunit": "^4.8.36"
         },
-        "time": "2017-10-06T12:25:00+00:00",
+        "time": "2017-10-06 12:25:00",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -438,14 +438,14 @@
         "suggest": {
             "psr/log": "Required for using the Log middleware"
         },
-        "time": "2017-06-22T18:50:49+00:00",
+        "time": "2017-06-22 18:50:49",
         "type": "library",
         "extra": {
             "branch-alias": {
                 "dev-master": "6.2-dev"
             }
         },
-        "installation-source": "source",
+        "installation-source": "dist",
         "autoload": {
             "files": [
                 "src/functions_include.php"
@@ -498,9 +498,9 @@
         "require-dev": {
             "phpunit/phpunit": " 4.8.35"
         },
-        "time": "2017-06-27T22:17:23+00:00",
+        "time": "2017-06-27 22:17:23",
         "type": "library",
-        "installation-source": "source",
+        "installation-source": "dist",
         "autoload": {
             "psr-4": {
                 "Firebase\\JWT\\": "src"
@@ -532,12 +532,12 @@
         "source": {
             "type": "git",
             "url": "https://github.com/google/google-auth-library-php.git",
-            "reference": "1d66066289a7278275d9372b7cab74318cb5f814"
+            "reference": "548d27d670f0236dc5258fa4cdde6e7b63464cfd"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/google/google-auth-library-php/zipball/1d66066289a7278275d9372b7cab74318cb5f814",
-            "reference": "1d66066289a7278275d9372b7cab74318cb5f814",
+            "url": "https://api.github.com/repos/google/google-auth-library-php/zipball/548d27d670f0236dc5258fa4cdde6e7b63464cfd",
+            "reference": "548d27d670f0236dc5258fa4cdde6e7b63464cfd",
             "shasum": ""
         },
         "require": {
@@ -552,7 +552,7 @@
             "friendsofphp/php-cs-fixer": "^1.11",
             "phpunit/phpunit": "3.7.*"
         },
-        "time": "2017-09-29T20:38:38+00:00",
+        "time": "2017-10-10 17:01:45",
         "type": "library",
         "installation-source": "source",
         "autoload": {
@@ -570,6 +570,58 @@
             "Authentication",
             "google",
             "oauth2"
+        ]
+    },
+    {
+        "name": "j7mbo/twitter-api-php",
+        "version": "dev-master",
+        "version_normalized": "9999999-dev",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/J7mbo/twitter-api-php.git",
+            "reference": "f1a84c8c39a854ac7a8bc87e59c997b526c7bbc7"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/J7mbo/twitter-api-php/zipball/f1a84c8c39a854ac7a8bc87e59c997b526c7bbc7",
+            "reference": "f1a84c8c39a854ac7a8bc87e59c997b526c7bbc7",
+            "shasum": ""
+        },
+        "require": {
+            "ext-curl": "*"
+        },
+        "require-dev": {
+            "phpunit/phpunit": "~4.5,>=4.5.1"
+        },
+        "time": "2017-05-08 16:51:49",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "1.0-dev"
+            }
+        },
+        "installation-source": "source",
+        "autoload": {
+            "classmap": [
+                "TwitterAPIExchange.php"
+            ]
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "GNU Public License"
+        ],
+        "authors": [
+            {
+                "name": "James Mallison",
+                "homepage": "https://github.com/j7mbo/twitter-api-php"
+            }
+        ],
+        "description": "Simple PHP Wrapper for Twitter API v1.1 calls",
+        "homepage": "https://github.com/j7mbo/twitter-api-php",
+        "keywords": [
+            "api",
+            "php",
+            "twitter"
         ]
     },
     {
@@ -594,7 +646,7 @@
             "ext-curl": "*",
             "phpunit/phpunit": "~4.1"
         },
-        "time": "2017-09-07T06:57:32+00:00",
+        "time": "2017-09-07 06:57:32",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -628,58 +680,6 @@
             "google",
             "oauth",
             "social",
-            "twitter"
-        ]
-    },
-    {
-        "name": "j7mbo/twitter-api-php",
-        "version": "dev-master",
-        "version_normalized": "9999999-dev",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/J7mbo/twitter-api-php.git",
-            "reference": "f1a84c8c39a854ac7a8bc87e59c997b526c7bbc7"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/J7mbo/twitter-api-php/zipball/f1a84c8c39a854ac7a8bc87e59c997b526c7bbc7",
-            "reference": "f1a84c8c39a854ac7a8bc87e59c997b526c7bbc7",
-            "shasum": ""
-        },
-        "require": {
-            "ext-curl": "*"
-        },
-        "require-dev": {
-            "phpunit/phpunit": "~4.5,>=4.5.1"
-        },
-        "time": "2017-05-08T16:51:49+00:00",
-        "type": "library",
-        "extra": {
-            "branch-alias": {
-                "dev-master": "1.0-dev"
-            }
-        },
-        "installation-source": "source",
-        "autoload": {
-            "classmap": [
-                "TwitterAPIExchange.php"
-            ]
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "GNU Public License"
-        ],
-        "authors": [
-            {
-                "name": "James Mallison",
-                "homepage": "https://github.com/j7mbo/twitter-api-php"
-            }
-        ],
-        "description": "Simple PHP Wrapper for Twitter API v1.1 calls",
-        "homepage": "https://github.com/j7mbo/twitter-api-php",
-        "keywords": [
-            "api",
-            "php",
             "twitter"
         ]
     }
