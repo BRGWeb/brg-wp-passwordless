@@ -88,7 +88,7 @@ class Brg_Wp_Account_Kit_Settings
 
         add_settings_field(
             'app_id',
-            'APP Id',
+            'Facebook APP Id',
             array( $this, 'app_id_callback' ),
             'brg-wp-account-kit-settings-admin',
             'brg-wp-account-kit-settings'
@@ -96,7 +96,7 @@ class Brg_Wp_Account_Kit_Settings
 
         add_settings_field(
             'api_version',
-            'API Version',
+            'Facebook API Version',
             array( $this, 'api_version_callback' ),
             'brg-wp-account-kit-settings-admin',
             'brg-wp-account-kit-settings'
@@ -104,7 +104,7 @@ class Brg_Wp_Account_Kit_Settings
 
         add_settings_field(
             'app_secret',
-            'APP Secret',
+            'Facebook APP Secret',
             array( $this, 'api_secret_callback' ),
             'brg-wp-account-kit-settings-admin',
             'brg-wp-account-kit-settings'
@@ -112,7 +112,7 @@ class Brg_Wp_Account_Kit_Settings
 
         add_settings_field(
             'client_token',
-            'Client Token',
+            'Facebook Client Token',
             array( $this, 'client_token_callback' ),
             'brg-wp-account-kit-settings-admin',
             'brg-wp-account-kit-settings'
@@ -226,7 +226,7 @@ class Brg_Wp_Account_Kit_Settings
      */
     public function print_section_info()
     {
-        print 'Access <a href="https://developers.facebook.com/docs/accountkit">Facebook Account Kit Page</a>, create a new application and fill the fields bellow:';
+        print 'Links: <a href="https://developers.facebook.com/apps/" target="_blank">Facebook Apps</a>, <a href="https://apps.twitter.com/" target="_blank">Twitter Apps</a> and <a href="https://console.cloud.google.com/home/dashboard" target="_blank">Google Console</a>';
     }
 
     /**
