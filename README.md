@@ -17,6 +17,12 @@ WordPress plugin for passwordless registration and login with
 
 ## Instalation
 
+### Plugin Version (master branch)
+
+Clone the repository inside `wp-content/plugins` or Download zip version and install as plugin.
+
+### Dev Version (dev branches)
+
 Clone the repository inside `wp-content/plugins`
 
 ```sh

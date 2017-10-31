@@ -3,12 +3,17 @@ Contributors: brgweb
 Donate link: https://brgweb.com.br/donate
 Tags: login, registration, passwordless, facebook account kit, account kit
 Requires at least: 3.0.1
-Tested up to: 4.7.4
-Stable tag: 4.7.4
+Tested up to: 4.8.2
+Stable tag: 4.8.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Implements Facebook Account kit for passwordless registration and login through email and SMS.
+WordPress plugin for passwordless registration and login with 
+
+* Facebook
+* Google
+* Twitter
+* SMS/Email with Facebook Account Kit.
 
 == Description ==
 
@@ -17,10 +22,15 @@ Still in development. Should not be used in production!
 == Installation ==
 
 1. Install the plugin as usual
-2. Change the Facebook App variables in 112 to 115 in includes/class-brg-wp-account-kit.php
-3. Activate the plugin
+2. Configure APIs in Configuration -> BRG Passwordless
 
 == Changelog ==
 
+= 1.1.0 =
+* Added Twitter
+* Added Facebook
+* Added Google
+
 = 1.0 =
 * Initial public version
+* Account kit login/registration
