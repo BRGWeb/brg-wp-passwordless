@@ -1,0 +1,26 @@
+{
+    "name": "brgweb/passwordless",
+    "description": "WordPress plugin for passwordless registration and login with Facebook Account Kit",
+    "type": "wordpress-plugin",
+    "homepage": "http://brgweb.com.br",
+    "keywords": ["brgweb", "wordpress", "plugin", "account", "kit"],
+    "require": {
+        "php": ">=7.0",
+        "composer/installers": "v1.0.6",
+        "guzzlehttp/guzzle": "^6.2@dev",
+        "facebook/graph-sdk": "5.x-dev",
+        "j7mbo/twitter-api-php": "^1.0@dev",
+        "abraham/twitteroauth": "dev-master",
+        "google/auth": "dev-master",
+        "hybridauth/hybridauth": "^3.0@dev"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Jonathan A. Schweder",
+            "email": "jonathanschweder@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev"
+}
+
