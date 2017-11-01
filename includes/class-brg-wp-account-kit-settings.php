@@ -87,6 +87,22 @@ class Brg_Wp_Account_Kit_Settings
         );
 
         add_settings_field(
+            'use_facebook_ak',
+            'Use Facebook Account Kit (Email + SMS) ?',
+            array( $this, 'use_facebook_ak_callback' ),
+            'brg-wp-account-kit-settings-admin',
+            'brg-wp-account-kit-settings'
+        );
+
+        add_settings_field(
+            'use_facebook_login',
+            'Use Facebook Login ?',
+            array( $this, 'use_facebook_login_callback' ),
+            'brg-wp-account-kit-settings-admin',
+            'brg-wp-account-kit-settings'
+        );
+
+        add_settings_field(
             'app_id',
             'Facebook APP Id',
             array( $this, 'app_id_callback' ),
@@ -119,6 +135,14 @@ class Brg_Wp_Account_Kit_Settings
         );
 
         add_settings_field(
+            'use_twitter',
+            'Use Twitter ?',
+            array( $this, 'use_twitter_callback' ),
+            'brg-wp-account-kit-settings-admin',
+            'brg-wp-account-kit-settings'
+        );
+
+        add_settings_field(
             'twitter_oauth_access_token',
             'Twitter Oauth Access Token',
             array( $this, 'twitter_oauth_access_token_callback' ),
@@ -146,6 +170,14 @@ class Brg_Wp_Account_Kit_Settings
             'twitter_consumer_secret',
             'Twitter Consumer Secret',
             array( $this, 'twitter_consumer_secret_callback' ),
+            'brg-wp-account-kit-settings-admin',
+            'brg-wp-account-kit-settings'
+        );
+
+        add_settings_field(
+            'use_google',
+            'Use Google ?',
+            array( $this, 'use_google_callback' ),
             'brg-wp-account-kit-settings-admin',
             'brg-wp-account-kit-settings'
         );
@@ -227,6 +259,58 @@ class Brg_Wp_Account_Kit_Settings
     public function print_section_info()
     {
         print 'Links: <a href="https://developers.facebook.com/apps/" target="_blank">Facebook Apps</a>, <a href="https://apps.twitter.com/" target="_blank">Twitter Apps</a> and <a href="https://console.cloud.google.com/home/dashboard" target="_blank">Google Console</a>';
+    }
+
+    /**
+     * Get the settings option array and print one of its values
+     *
+     * @since 1.0.0
+     */
+    public function use_facebook_ak_callback()
+    {
+        printf(
+            '<input type="checkbox" id="use_facebook_ak" name="brg-wp-account-kit-settings[use_facebook_ak]" value="%s" />',
+            isset($this->options['use_facebook_ak']) ? esc_attr($this->options['use_facebook_ak']) : ''
+        );
+    }
+
+    /**
+     * Get the settings option array and print one of its values
+     *
+     * @since 1.0.0
+     */
+    public function use_facebook_login_callback()
+    {
+        printf(
+            '<input type="checkbox" id="use_facebook_login" name="brg-wp-account-kit-settings[use_facebook_login]" value="%s" />',
+            isset($this->options['use_facebook_login']) ? esc_attr($this->options['use_facebook_login']) : ''
+        );
+    }
+
+    /**
+     * Get the settings option array and print one of its values
+     *
+     * @since 1.0.0
+     */
+    public function use_twitter_callback()
+    {
+        printf(
+            '<input type="checkbox" id="use_twitter" name="brg-wp-account-kit-settings[use_twitter]" value="%s" />',
+            isset($this->options['use_twitter']) ? esc_attr($this->options['use_twitter']) : ''
+        );
+    }
+
+    /**
+     * Get the settings option array and print one of its values
+     *
+     * @since 1.0.0
+     */
+    public function use_google_callback()
+    {
+        printf(
+            '<input type="checkbox" id="use_google" name="brg-wp-account-kit-settings[use_google]" value="%s" />',
+            isset($this->options['use_google']) ? esc_attr($this->options['use_google']) : ''
+        );
     }
 
     /**
